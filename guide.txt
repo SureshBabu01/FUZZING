@@ -1,0 +1,92 @@
+WHY FUZZING AMD ATTACKS
+
+---
+
+Why Do Security Testers Fuzz Directories?
+
+Directory fuzzing is the process of sending many requests to a target web server using wordlists (common or custom) to discover hidden or unlinked files, folders, and endpoints.
+
+Goals of Directory Fuzzing
+
+1. Find sensitive files
+
+.env, config.php, database.yml, .git/
+
+These may contain API keys, credentials, or source code.
+
+
+
+2. Uncover hidden admin panels or dashboards
+
+/admin, /secret, /manage
+
+Could allow unauthorized access if not properly protected.
+
+
+
+3. Detect backup or old files
+
+index.php.bak, login.old, db_backup.zip
+
+Often left by developers accidentally.
+
+
+
+4. Identify new API endpoints
+
+/api/v1/users, /beta, /internal
+
+Could be used for privilege escalation or logic flaws.
+
+
+
+5. Help with other attacks
+
+Brute force attacks (find login panels to test passwords)
+
+LFI/RFI (find file inclusion points)
+
+RCE (find scripts that execute code, like test pages)
+
+Data leakage (exposed directories, logs, debugging endpoints)
+
+Privilege escalation (hidden admin routes not meant for public)
+
+
+
+
+
+---
+
+Which Attacks Can Directory Fuzzing Enable?
+
+Information Disclosure → Exposed configuration or source files
+
+Broken Access Control → Accessing admin endpoints without login
+
+Remote Code Execution (RCE) → Upload folders with weak validation
+
+Local File Inclusion (LFI) → Test endpoints that allow file loading
+
+API Abuse → Hidden endpoints with sensitive operations
+
+Data Breaches → Finding backups containing raw databases
+
+
+
+---
+
+Key Tools Used for Directory Fuzzing
+
+ffuf (fast, modern)
+
+dirsearch (simple Python tool)
+
+gobuster (fast Go-based scanner)
+
+Burp Intruder (manual + automated fuzzing)
+
+
+
+---
+
